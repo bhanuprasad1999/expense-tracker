@@ -1,6 +1,12 @@
-<!-- Index.svelte -->
+<!-- Index.svelte-->
 <script lang="ts">
     import Table from "../components/table/Table.svelte";
+    import LayoutC from "../components/layouts/LayoutC.svelte";
+    import LayoutHC from "../components/layouts/LayoutHC.svelte";
+
+    import Workspace from "../components/layouts/Workspace.svelte";
+    import Navbar from "../components/design/Navbar.svelte";
+    import { leftItems, rightItems } from "$lib/Menu/HomeMenu.js";
 
     interface Row {
         id: number;
@@ -10,14 +16,14 @@
     interface Column {
         label: string;
         key: string;
-        type:string;
+        type: string;
     }
 
     let columns: Column[] = [
-        { label: "Name", key: "name" , type:"text"},
-        { label: "Age", key: "age", type:"number" },
-        { label: "test", key: "test", type:"text" },
-        { label: "test2", key: "test2", type:"text" }
+        { label: "Name", key: "name", type: "text" },
+        { label: "Age", key: "age", type: "number" },
+        { label: "test", key: "test", type: "text" },
+        { label: "test2", key: "test2", type: "text" },
     ];
 
     let rows: Row[] = [
@@ -38,10 +44,21 @@
     }
 </script>
 
-<Table
-    {columns}
-    {rows}
-    onRowAdd={handleRowAdd}
-    onRowUpdate={handleRowUpdate}
-    onRowDelete={handleRowDelete}
-/>
+<div>
+    <Workspace>
+        <LayoutHC>
+            <div slot="header">
+                <Navbar {leftItems} rightItems={rightItems}/>
+            </div>
+            <div slot="content">
+                <Table
+                    {columns}
+                    {rows}
+                    onRowAdd={handleRowAdd}
+                    onRowUpdate={handleRowUpdate}
+                    onRowDelete={handleRowDelete}
+                />
+            </div>
+        </LayoutHC>
+    </Workspace>
+</div>
